@@ -1,51 +1,67 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Public Message Board</title>
-    <link rel="stylesheet" href="css/styles.css">
-    <script src="js/main.js"></script>
-</head>
-<body>
-    <header>
-        <nav>
-            <ul>
-                <li><a href="index.html" class="active">Home</a></li>
-                <li><a href="about.html">About</a></li>
-                <li><a href="contact.html">Contact Us</a></li>
-            </ul>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>MessageHub | Public Board</title>
+    <link rel="stylesheet" href="styles/styles.css"/>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+  </head>
+  <body>
+    <header class="main-header">
+      <div class="header-container">
+        <h1 class="logo">MessageHub</h1>
+        <nav class="main-nav">
+          <ul>
+            <li><a href="index.html" class="active">Home</a></li>
+            <li><a href="contact.html">Contacts</a></li>
+            <li><a href="about.html">About</a></li>
+          </ul>
         </nav>
+      </div>
     </header>
 
-    <div class="page-container">
-        <aside class="message-input-section">
-            <h2>Post a Message</h2>
-            <form class="message-form">
-                <input type="text" id="name" name="name" placeholder="Your name" required>
-                <textarea id="message" name="message" placeholder="Write your message here..." required></textarea>
-                <div class="message-options">
-                    <div class="color-picker">
-                        <label for="textColor">Text Color:</label>
-                        <input type="color" id="textColor" name="textColor" value="#000000">
-                    </div>
-                    <button type="submit">Post Message</button>
-                </div>
-            </form>
-        </aside>
+    <main class="message-board-container">
+      <div class="status-bar">
+        <div id="firebase-status">
+          <i class="fas fa-circle-notch fa-spin"></i> Connecting...
+        </div>
+        <div class="message-count">0 messages</div>
+      </div>
+      <form id="message-form" class="message-form">
+        <div class="input-group">
+          <input
+            type="text"
+            id="author-input"
+            placeholder="Your name"
+            value="Anonymous"
+          />
+          <input
+            type="text"
+            id="message-input"
+            placeholder="Write your message..."
+            required
+          />
+          <button type="submit" class="send-button">
+            <i class="fas fa-paper-plane"></i> Send
+          </button>
+        </div>
+        <div id="post-status" class="post-status"></div>
+      </form>
+      <div id="typing-indicator" class="typing-indicator">
+        <div class="typing-content">
+          <span class="typing-dots"></span>
+          <span class="typing-text">Someone is typing...</span>
+        </div>
+      </div>
+      <div class="message-list" id="message-container"></div>
+    </main>
 
-        <main>
-            <div class="messages-container">
-                <h1>Public Message Board</h1>
-                <div id="messages">
-                    <!-- Messages will be displayed here -->
-                </div>
-            </div>
-        </main>
-    </div>
-
-    <footer>
-        <p>&copy; 2024 Public Message Board. All rights reserved.</p>
-    </footer>
-</body>
-</html> 
+    <script src="scripts/app.js" type="module"></script>
+  </body>
+</html>
