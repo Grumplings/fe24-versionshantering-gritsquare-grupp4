@@ -9,6 +9,7 @@ import {
   onSnapshot,
   query,
   orderBy,
+  getDoc,
 } from "firebase/firestore";
 
 const firebaseConfig = {
@@ -32,6 +33,39 @@ const firebaseStatus = document.getElementById("firebase-status");
 
 const userId = "user-" + Math.random().toString(36).substr(2, 9);
 let typingTimeout;
+
+// Funktion för att sätta banstatus
+async function setBanStatus(userId, isBanned) {
+  const userRef = doc(db, "users", userId);
+  try {
+    await setDoc(userRef, {
+      banStatus: isBanned, // Uppdaterar användarens banstatus i Firestore
+    }, { merge: true });
+  } catch (error) {
+    console.error("Error setting ban status:", error);
+  }
+}
+
+// Funktion för att kolla användarens status (bannad eller inga chanser kvar)
+async function checkUserStatus(userId) {
+  const userRef = doc(db, "users", userId);
+  const userSnap = await getDoc(userRef);
+  if (userSnap.exists()) {
+    const userData = userSnap.data();
+    if (userData.banStatus) {
+      alert("You are banned from posting!");  // Blockera om användaren är bannad
+      return false; // Blockerar användaren från att posta
+    }
+    if (userData.chanceStatus <= 0) {
+      alert("You have no chances left. You cannot post.");  // Blockera om användaren inte har några chanser kvar
+      return false; // Blockerar användaren från att posta
+    }
+    return true; // Om användaren har rätt att posta, returnera true
+  } else {
+    console.error("User not found");
+    return false;
+  }
+}
 
 function showTypingIndicator(userName) {
   const typingIndicator = document.getElementById("typing-indicator");
@@ -119,6 +153,12 @@ messageForm.addEventListener("submit", async (e) => {
     postStatus.textContent = "Posting...";
     postStatus.style.color = "blue";
     handleTypingEnd();
+
+    // Kontrollera användarens status innan de får posta
+    const canPost = await checkUserStatus(userId);
+    if (!canPost) {
+      return; // Om användaren inte har rätt att posta, stoppa processen
+    }
 
     await addDoc(collection(db, "messages"), {
       text: messageText,
