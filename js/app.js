@@ -123,23 +123,34 @@ function fetchMessages() {
         <div class="message-content">
           <div class="message-header">
             <span class="message-author">${msg.author} ${msg.banned ? "(BANNED)" : ""}</span>
-            <button onclick="toggleBanStatus('${msg.userId}')">${msg.banned ? "Unban" : "Ban"}</button>
+            <button class="ban-button" data-user-id="${msg.userId}">${msg.banned ? "Unban" : "Ban"}</button>
           </div>
           <p class="message-text">${msg.banned ? "🚫 This user is banned" : msg.text}</p>
         </div>
       `;
       messageContainer.appendChild(messageEl);
     });
+
+    // Lägg till event listener för varje ban-knapp
+    const banButtons = document.querySelectorAll('.ban-button');
+    banButtons.forEach(button => {
+      button.addEventListener('click', async (e) => {
+        const userId = e.target.dataset.userId;
+        console.log(`Button clicked for userId: ${userId}`);
+        await toggleBanStatus(userId);
+      });
+    });
   });
 }
 
 async function toggleBanStatus(userId) {
+  console.log("Toggling ban status for:", userId); // Logga för att se om den anropas korrekt
   const isBanned = await checkBanStatus(userId);
   if (isBanned) {
     await unbanUser(userId);
   } else {
     await banUser(userId);
   }
-} 
+}
 
 fetchMessages();
