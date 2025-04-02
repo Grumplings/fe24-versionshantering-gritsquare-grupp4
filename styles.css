@@ -435,6 +435,21 @@ footer p {
     animation: highlight 1s ease-out;
 }
 
+.removeButton {
+    border-radius: 10rem;
+    aspect-ratio: 1/1;
+    border: none;
+    padding: 1px;
+    margin-left: auto;
+    background-color: transparent;
+    display: flex;
+  }
+  
+.removeButton:hover {
+    cursor: pointer;
+  }
+
+
 @keyframes highlight {
     0% {
         background-color: rgba(74, 144, 226, 0.2);
