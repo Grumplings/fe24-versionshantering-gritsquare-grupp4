@@ -1,5 +1,6 @@
 import { db } from './firebase-config.js';  
 import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js';
+import { addRemoveButton } from './removeshake.js';
 
 document.addEventListener('DOMContentLoaded', function () {
     const sendButton = document.getElementById('sendButton');
@@ -14,8 +15,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
         snapshot.forEach(doc => {
             const msg = doc.data();
-            console.log('Meddelande:', msg);  
-            displayMessage(msg);
+            
+            //console.log('Meddelande:', doc.key);  
+            console.log('Meddelande:', doc.id);  
+            displayMessage(msg, doc.id);
         });
     });
 });
@@ -46,10 +49,11 @@ function sendMessage() {
         });
 }
 
-function displayMessage(msg) {
+function displayMessage(msg,key) {
     const messagesDiv = document.getElementById('messages');
     const messageDiv = document.createElement('div');
-
+    
+    messageDiv.setAttribute("data-id",key)
     messageDiv.className = 'message received';
     messageDiv.innerHTML = `
         <div class="message-header">
@@ -59,7 +63,10 @@ function displayMessage(msg) {
         <div class="message-content" style="color: ${msg.color || '#000'}">${msg.text}</div>
     `;
 
+         console.log(messageDiv);
+    
     messagesDiv.appendChild(messageDiv);
+    addRemoveButton(messageDiv,key);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 

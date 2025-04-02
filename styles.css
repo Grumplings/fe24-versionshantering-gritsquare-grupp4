@@ -476,6 +476,21 @@ footer p {
     75% { transform: translateX(-10px); }
     100% { transform: translateX(0); }
   }
+
+.removeButton {
+    border-radius: 10rem;
+    aspect-ratio: 1/1;
+    border: none;
+    padding: 1px;
+    margin-left: auto;
+    background-color: transparent;
+    display: flex;
+  }
+  
+.removeButton:hover {
+    cursor: pointer;
+  }
+
 @keyframes highlight {
     0% {
         background-color: rgba(74, 144, 226, 0.2);
