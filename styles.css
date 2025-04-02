@@ -118,7 +118,10 @@ nav a.active {
     color: #666;
 }
 
-
+.message-author {
+    font-weight: bold;
+    margin-right: 5px;
+}
 
 .message:hover .delete-btn {
     opacity: 1;

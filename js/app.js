@@ -33,12 +33,12 @@ function sendMessage() {
     addDoc(collection(db, 'publicChat'), {
         name: name,
         text: message,
-        color: textColor, 
-        timestamp: serverTimestamp() 
+        color: textColor,
+        timestamp: serverTimestamp()
     })
         .then(() => {
             console.log('Meddelande skickat');
-            document.getElementById('message').value = ''; 
+            document.getElementById('message').value = '';
         })
         .catch(error => {
             console.error("Error sending message: ", error);
@@ -65,7 +65,7 @@ function displayMessage(msg) {
 
 function formatTime(timestamp) {
     const date = timestamp?.toDate() || new Date();
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
 
