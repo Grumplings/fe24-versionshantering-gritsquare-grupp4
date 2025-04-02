@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const sendButton = document.getElementById('sendButton');
     sendButton.addEventListener('click', sendMessage);
 
-    // Listen to new messages
+    
     const q = query(collection(db, 'publicChat'), orderBy('timestamp'));
 
     onSnapshot(q, (snapshot) => {
