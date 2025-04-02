@@ -76,3 +76,47 @@ function formatTime(timestamp) {
 }
 
 
+
+let isBouncing = false;
+
+document.getElementById('bounce-button').addEventListener('click', function() {
+  const element = document.getElementById('messages');
+
+  const button = document.getElementById('bounce-button')
+  
+  // Toggle the bouncing state
+  if (!isBouncing) {
+    // Add the bouncing class to start the animation
+    element.classList.add('bouncing');
+    button.innerText = 'Stop bouncing! ✋'
+    isBouncing = true;
+  } else {
+    // Remove the bouncing class to stop the animation
+    element.classList.remove('bouncing');
+    button.innerText = 'Get bouncy! ⛹️'
+    isBouncing = false;
+  }
+});
+
+
+
+
+let subZero = false;
+
+document.getElementById('freeze-button').addEventListener('click', function() {
+  const element = document.getElementById('messages');
+
+
+  const button = document.getElementById('freeze-button');
+
+  if (!subZero) {
+    // Add freezing class to trigger shaking
+    element.classList.add('freezing');
+    button.innerText = 'Room temperature 🔆';  // Update button text
+  } else {
+    // Remove freezing class to stop shaking
+    element.classList.remove('freezing');
+    button.innerText = 'Sub-zero Temperature ❆';  // Reset button text
+  }
+  subZero = !subZero;  // Toggle the subZero state
+})
