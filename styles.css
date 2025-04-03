@@ -15,9 +15,9 @@
 }
 
 body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     background-color: var(--background-color);
     color: var(--text-color);
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
 }
 
@@ -46,6 +46,7 @@ header h1 {
 
 header h1 i {
     font-size: 1.8rem;
+    color: var(--primary-color);
 }
 
 nav {
@@ -96,11 +97,12 @@ nav a.active {
 }
 
 .message {
-    background-color: var(--background-color);
+    background-color: var(--white);
     border-radius: 8px;
     padding: 1rem;
     margin-bottom: 1rem;
     position: relative;
+    color: var(--text-color);
 }
 
 .message strong {
@@ -380,6 +382,129 @@ footer p {
     background: #357abd;
 }
 
+/*Dark Mode*/
+body.dark-mode {
+    --background-color: #121212;
+    --text-color: white;
+    --white: #1e1e1e;
+    --primary-color: #4a90e2;
+    --border-color: #333;
+    --shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+}
+
+body.dark-mode .message {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode header,
+body.dark-mode nav a {
+    background-color: #1e1e1e;
+    color: var(--text-color);
+}
+
+body.dark-mode .message:hover {
+    background-color: #444;
+}
+
+#toggleTheme {
+    background-color: transparent;
+    border: 2px solid var(--primary-color);
+    color: var(--primary-color);
+    padding: 0.5rem 1rem;
+    border-radius: 30px;
+    font-size: 1.3rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease, transform 0.2s ease;
+}
+
+#toggleTheme:hover {
+    background-color: var(--primary-color);
+    color: white;
+    transform: scale(1.1);
+}
+
+body.dark-mode input {
+    background-color: #2a2a2a;
+    color: white;
+    border: 1px solid #444;
+}
+
+body.dark-mode input:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #333;
+}
+
+body.dark-mode .about-section,
+body.dark-mode .contact-section {
+    background-color: #1e1e1e;
+    color: white;
+}
+
+body.dark-mode .feature-card {
+    background-color: #333;
+    color: white;
+}
+
+body.dark-mode .about-section h2,
+body.dark-mode .contact-section h2,
+body.dark-mode .feature-card i,
+body.dark-mode .info-card i {
+    color: #4a90e2;
+}
+
+body.dark-mode .feature-card h3,
+body.dark-mode .info-card h3,
+body.dark-mode .about-section p,
+body.dark-mode .contact-section p {
+    color: white;
+}
+
+body.dark-mode .contact-section .info-card {
+    background-color: #333;
+    color: white;
+    border: 1px solid #444;
+}
+
+body.dark-mode .contact-section form {
+    background-color: #2a2a2a;
+    border-radius: 8px;
+    padding: 1rem;
+    border: 1px solid #444;
+}
+
+body.dark-mode .contact-section label {
+    color: #b0b0b0;
+}
+
+body.dark-mode .contact-section input,
+body.dark-mode .contact-section textarea {
+    background-color: #2a2a2a;
+    color: #e0e0e0;
+    border: 1px solid #444;
+}
+
+body.dark-mode .contact-section input:focus,
+body.dark-mode .contact-section textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    background-color: #333;
+}
+
+body.dark-mode .contact-section button {
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    padding: 0.8rem 1.5rem;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+body.dark-mode .contact-section button:hover {
+    background-color: #357abd;
+}
+
 /* Search feature styling */
 
 .search-container {
@@ -485,6 +610,10 @@ footer p {
     margin-left: auto;
     background-color: transparent;
     display: flex;
+    position: absolute;
+    top: 50%;
+    right: 24px;
+    transform: translateY(-50%);
   }
   
 .removeButton:hover {
@@ -552,8 +681,6 @@ footer p {
     }
 }
 
-
-
 /* Style for the color picker button */
 .input-area input[type="color"] {
     width: 50px;
@@ -580,7 +707,4 @@ footer p {
     transform: scale(1.1);
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.15);
 }
-
-
-
 
