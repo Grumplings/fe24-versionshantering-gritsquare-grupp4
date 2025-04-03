@@ -510,6 +510,10 @@ body.dark-mode .contact-section button:hover {
     background-color: #357abd;
 }
 
+body.dark-mode #char-counter {
+    color: var(--text-color);
+}
+
 /* Search feature styling */
 
 .search-container {
