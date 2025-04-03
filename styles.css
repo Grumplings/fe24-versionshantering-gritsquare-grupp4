@@ -197,6 +197,11 @@ nav a.active {
     background-color: #357abd;
 }
 
+#char-counter {
+    font-size: 15px;
+    color: #000000;
+}
+
 /* Footer */
 footer {
     text-align: center;

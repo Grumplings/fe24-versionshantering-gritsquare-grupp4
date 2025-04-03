@@ -140,3 +140,12 @@ document.getElementById('freeze-button').addEventListener('click', function() {
   subZero = !subZero;
 });
 
+
+/// Character counter 
+const messageInput = document.getElementById("message");
+const charCounter = document.getElementById("char-counter");
+
+messageInput.addEventListener("input", () => {
+    const currentLength = messageInput.value.length;
+    charCounter.textContent = `${currentLength}/200 characters`;
+});
