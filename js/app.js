@@ -2,11 +2,14 @@ import { db } from './firebase-config.js';
 import { collection, query, orderBy, onSnapshot, addDoc, serverTimestamp } from 'https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore.js';
 import { addRemoveButton } from './removeshake.js';
 
+// Lista för bannade användare
+let bannedUsers = JSON.parse(localStorage.getItem('bannedUsers')) || [];
+
 document.addEventListener('DOMContentLoaded', function () {
     const sendButton = document.getElementById('sendButton');
     sendButton.addEventListener('click', sendMessage);
 
-    // Listen to new messages
+    // Lyssna på nya meddelanden
     const q = query(collection(db, 'publicChat'), orderBy('timestamp'));
 
     onSnapshot(q, (snapshot) => {
@@ -15,8 +18,6 @@ document.addEventListener('DOMContentLoaded', function () {
 
         snapshot.forEach(doc => {
             const msg = doc.data();
-            
-            //console.log('Meddelande:', doc.key);  
             console.log('Meddelande:', doc.id);  
             displayMessage(msg, doc.id);
         });
@@ -30,6 +31,12 @@ function sendMessage() {
 
     if (!name || !message) {
         alert('Please enter both name and message');
+        return;
+    }
+
+    // Kontrollera om användaren är bannad
+    if (bannedUsers.includes(name)) {
+        alert('You are banned from sending messages!');
         return;
     }
 
@@ -49,24 +56,34 @@ function sendMessage() {
         });
 }
 
-function displayMessage(msg,key) {
+function displayMessage(msg, key) {
     const messagesDiv = document.getElementById('messages');
     const messageDiv = document.createElement('div');
     
-    messageDiv.setAttribute("data-id",key)
+    messageDiv.setAttribute("data-id", key);
     messageDiv.className = 'message received';
+    
+    // Lägg till en knapp för att banna användaren bredvid användarnamnet
     messageDiv.innerHTML = `
         <div class="message-header">
             <span class="message-author">${msg.name}</span>
+            <button class="ban-button" data-username="${msg.name}">Ban</button>
             <span class="message-time">${formatTime(msg.timestamp)}</span>
         </div>
         <div class="message-content" style="color: ${msg.color || '#000'}">${msg.text}</div>
     `;
 
-         console.log(messageDiv);
-    
+    // Lägg till event listener för bann-knappen
+    const banButton = messageDiv.querySelector('.ban-button');
+    if (banButton) {
+        banButton.addEventListener('click', function() {
+            const usernameToBan = banButton.getAttribute('data-username');
+            banUser(usernameToBan);
+        });
+    }
+
     messagesDiv.appendChild(messageDiv);
-    addRemoveButton(messageDiv,key);
+    addRemoveButton(messageDiv, key);
     messagesDiv.scrollTop = messagesDiv.scrollHeight;
 }
 
@@ -75,48 +92,51 @@ function formatTime(timestamp) {
     return `${date.toLocaleDateString()} ${date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}`;
 }
 
+function banUser(userName) {
+    if (!bannedUsers.includes(userName)) {
+        bannedUsers.push(userName);
+        localStorage.setItem('bannedUsers', JSON.stringify(bannedUsers)); 
+        console.log(`${userName} has been banned.`);
+        alert(`${userName} has been banned.`);
+    } else {
+        console.log(`${userName} is already banned.`);
+        alert(`${userName} is already banned.`);
+    }
+}
 
-
+// Funktion för att starta och stoppa "bouncing" på chatten
 let isBouncing = false;
 
 document.getElementById('bounce-button').addEventListener('click', function() {
   const element = document.getElementById('messages');
-
-  const button = document.getElementById('bounce-button')
+  const button = document.getElementById('bounce-button');
   
   // Toggle the bouncing state
   if (!isBouncing) {
-    // Add the bouncing class to start the animation
     element.classList.add('bouncing');
-    button.innerText = 'Stop bouncing! ✋'
+    button.innerText = 'Stop bouncing! ✋';
     isBouncing = true;
   } else {
-    // Remove the bouncing class to stop the animation
     element.classList.remove('bouncing');
-    button.innerText = 'Get bouncy! ⛹️'
+    button.innerText = 'Get bouncy! ⛹️';
     isBouncing = false;
   }
 });
 
-
-
-
+// Funktion för att frysa chatten
 let subZero = false;
 
 document.getElementById('freeze-button').addEventListener('click', function() {
   const element = document.getElementById('messages');
-
-
   const button = document.getElementById('freeze-button');
 
   if (!subZero) {
-    // Add freezing class to trigger shaking
     element.classList.add('freezing');
-    button.innerText = 'Room temperature 🔆';  // Update button text
+    button.innerText = 'Room temperature 🔆';
   } else {
-    // Remove freezing class to stop shaking
     element.classList.remove('freezing');
-    button.innerText = 'Sub-zero Temperature ❆';  // Reset button text
+    button.innerText = 'Sub-zero Temperature ❆';
   }
-  subZero = !subZero;  // Toggle the subZero state
-})
+  subZero = !subZero;
+});
+
