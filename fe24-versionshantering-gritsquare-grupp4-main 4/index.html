@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gritsquare App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script type="module" src="js/app.js"></script>
+    <script src="js/search.js" defer></script>
+    <script src="js/removeshake.js" type="module"></script>
+    <script src="js/darkMode.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-comment-sms"></i>Gritsquare</h1>
+            <nav>
+                <a href="index.html" class="active"><i class="fas fa-home"></i> Chat</a>
+                <a href="about.html"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+
+                <button id="bounce-button">Get Bouncy! ⛹️</button>
+                <button id="freeze-button">Sub-zero Temperature ❆ </button>
+                <button id="number-button">send a random number quote</button>
+                <button id="toggleTheme"><i class="fas fa-moon"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div id="messages"></div>
+        <div class="input-area">
+            <input type="text" id="name" placeholder="Your name" required>
+            <div class="message-input-group">
+                <input type="text" id="message" placeholder="Type your message..." required>
+                <input type="color" id="textColor" value="#4a90e2" title="Choose text color">
+                <p id="char-counter">0/200 Characters</p>
+            </div>
+            <button id="sendButton"><i class="fas fa-paper-plane"></i> Send</button>
+        </div>
+
+    
+    </main>
+
+    <footer>
+        <p><i class="far fa-copyright"></i> 2025 Gritsquare</p>
+    </footer>
+</body>
+</html>

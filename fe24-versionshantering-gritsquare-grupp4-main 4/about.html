@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - Gritsquare App</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.0/firebase-firestore-compat.js"></script>
+    <script type="module" src="js/app.js" defer></script>
+    <script src="js/darkMode.js" defer></script>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <h1><i class="fas fa-comment-sms"></i>Gritsquare</h1>
+            <nav>
+                <a href="index.html"><i class="fas fa-home"></i> Chat</a>
+                <a href="about.html" class="active"><i class="fas fa-info-circle"></i> About</a>
+                <a href="contact.html"><i class="fas fa-envelope"></i> Contact</a>
+                <button id="toggleTheme"><i class="fas fa-moon"></i></button>
+            </nav>
+        </div>
+    </header>
+
+    <main class="container">
+        <div class="about-section">
+            <h2><i class="fas fa-info-circle"></i> About Gritsquare</h2>
+            <p>Gritsquare is a real-time chat application that allows users to communicate instantly. Built with modern web technologies, it provides a seamless and intuitive messaging experience.</p>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Real-time Updates</h3>
+                    <p>Messages appear instantly as they are sent, providing immediate communication.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fas fa-shield-alt"></i>
+                    <h3>Secure</h3>
+                    <p>Built with Firebase security rules to ensure safe and protected communication.</p>
+                </div>
+                
+                <div class="feature-card">
+                    <i class="fa-solid fa-code"></i>
+                    <h3>The Team</h3>
+                    <p> <strong> Younes Raho Moussa:</strong> Javascript-Html-css</p>
+                    <p><strong> My Roslund: </strong> - Javascript-Html</p>
+                    <p><strong> Rabia Mehboob: </strong> -</p
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p><i class="far fa-copyright"></i> 2025 Gritsquare</p>
+    </footer>
+</body>
+</html>
