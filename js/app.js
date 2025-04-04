@@ -72,7 +72,15 @@ function displayMessage(msg, key) {
         </div>
         <div class="message-content" style="color: ${msg.color || '#000'}">${msg.text}</div>
     `;
-
+    if(msg.name=='\"NumberQuote\"')
+        messageDiv.innerHTML = `
+        <div class="message-header">
+            <span class="message-author">${msg.name}</span>
+            <span class="message-time">${formatTime(msg.timestamp)}</span>
+        </div>
+        <div class="message-content" style="color: ${msg.color || '#000'}">${msg.text}</div>
+    `;
+    
     // Lägg till event listener för bann-knappen
     const banButton = messageDiv.querySelector('.ban-button');
     if (banButton) {
@@ -149,3 +157,44 @@ messageInput.addEventListener("input", () => {
     const currentLength = messageInput.value.length;
     charCounter.textContent = `${currentLength}/200 characters`;
 });
+
+document.getElementById("number-button").addEventListener('click',async()=>{
+
+let url= "http://numbersapi.com/random/math"
+let proxyURL = "https://api.allorigins.win/get?url="+url
+
+
+  let results = await fetch(proxyURL)
+    
+  let data=  await results.json()
+  
+  const name = document.getElementById('name').value.trim();
+    const message = document.getElementById('message').value.trim();
+    const textColor = document.getElementById('textColor').value;
+
+    /* if (!name || !message) {
+        alert('Please enter both name and message');
+        return;
+    } */
+
+    // Kontrollera om användaren är bannad
+    if (bannedUsers.includes(name)) {
+        alert('You are banned from sending messages!');
+        return;
+    }
+
+    addDoc(collection(db, 'publicChat'), {
+        name: "\"NumberQuote\"",
+        text: data.contents,
+        color: textColor,
+        timestamp: serverTimestamp()
+    })
+        .then(() => {
+            console.log('Meddelande skickat');
+            document.getElementById('message').value = '';
+        })
+        .catch(error => {
+            console.error("Error sending message: ", error);
+            alert("Error sending message. Check console for details.");
+        });
+})
