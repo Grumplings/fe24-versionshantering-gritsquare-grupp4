@@ -152,11 +152,14 @@ document.getElementById('freeze-button').addEventListener('click', function() {
 /// Character counter 
 const messageInput = document.getElementById("message");
 const charCounter = document.getElementById("char-counter");
+const maxChars = 200;
 
 messageInput.addEventListener("input", () => {
-    const currentLength = messageInput.value.length;
-    charCounter.textContent = `${currentLength}/200 characters`;
-});
+    if (messageInput.value.length > maxChars) {
+        messageInput.value = messageInput.value.slice(0, maxChars);
+    }
+    charCounter.textContent = `${messageInput.value.length}/200 characters`;
+})
 
 document.getElementById("number-button").addEventListener('click',async()=>{
 
